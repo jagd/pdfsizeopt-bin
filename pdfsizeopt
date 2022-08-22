@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Additional script to wrap all optimizers
+
+P="$(readlink "$0" 2>/dev/null)"
+test "$P" && test "${P#/}" = "$P" && P="${0%/*}/$P"
+test "$P" || P="$0"
+Q="${P%/*}"/pdfsizeopt.single # The original pdfsizeopt
+export CLASSPATH="${P%/*}"/pdfsizeopt_libexec
+echo CLASSPATH=$CLASSPATH
+J="${P%/*}"/pdfsizeopt_libexec/Multivalent.jar
+if which javac ; then
+    M=yes 
+else
+    M=no
+fi
+/bin/sh "$Q" --use-image-optimizer=sam2p,jbig2,pngout,zopflipng,optipng,advpng,ECT --use-multivalent=$M "$@" \
+&& if [ "$M" != "yes" ] ; then
+    cat << EOF 
+
+    =========================================
+
+    Cannot find JRE, Multivalent is disabled.
+    To do it manually:
+
+        java -cp "$J" tool.pdf.Compress <file>
+
+    =========================================
+
+EOF
+fi

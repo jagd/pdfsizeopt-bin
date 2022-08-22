@@ -7,9 +7,8 @@ test "$P" && test "${P#/}" = "$P" && P="${0%/*}/$P"
 test "$P" || P="$0"
 Q="${P%/*}"/pdfsizeopt.single # The original pdfsizeopt
 export CLASSPATH="${P%/*}"/pdfsizeopt_libexec
-echo CLASSPATH=$CLASSPATH
 J="${P%/*}"/pdfsizeopt_libexec/Multivalent.jar
-if which javac ; then
+if which java ; then
     M=yes 
 else
     M=no

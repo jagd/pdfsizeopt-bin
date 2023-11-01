@@ -6,7 +6,7 @@
 
   ```bash
   mkdir -p ~/.local/{bin,opt}
-  git clone https://github.com/jagd/pdfsizeopt-bin.git ~/.local/opt/pdfsizeopt
+  git clone --depth=1 https://github.com/jagd/pdfsizeopt-bin.git ~/.local/opt/pdfsizeopt
   ln -s ../opt/pdfsizeopt/pdfsizeopt ~/.local/bin/pdfsizeopt
   ```
 
